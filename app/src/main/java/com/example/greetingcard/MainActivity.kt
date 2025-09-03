@@ -104,10 +104,10 @@ fun JapaneseConjugationScreen(modifier: Modifier = Modifier) {
 
         Button(
             onClick = {
-                if (verb.isNotBlank()) {
-                    result = "Conjugated form of '$verb' to '$selectedConjugationType' (mock)"
+                result = if (verb.isNotBlank()) {
+                    "Conjugated form of '$verb' to '$selectedConjugationType' (mock)"
                 } else {
-                    result = "Please enter a verb."
+                    "Please enter a verb."
                 }
             },
             modifier = Modifier.fillMaxWidth()

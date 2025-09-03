@@ -10,11 +10,8 @@ val Purple40 = Color(0xFF6650a4)
 val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
-// New Expressive Colors for Japanese Theme
-val DeepIndigo = Color(0xFF4B0082)       // Primary for Light Theme
-val SakuraPink = Color(0xFFFFB7C5)       // Secondary for Light Theme
-val MatchaGreen = Color(0xFF88B04B)      // Tertiary for Light Theme
-
-val DeepIndigoLight = Color(0xFF7A52B3)  // Primary for Dark Theme
-val SakuraPinkLight = Color(0xFFFFD9E0)  // Secondary for Dark Theme
-val MatchaGreenLight = Color(0xFFA9C77B) // Tertiary for Dark Theme
+// Expressive colors
+val Orange = Color(0xFFFFA500)
+val LightBlue = Color(0xFFADD8E6)
+val Green = Color(0xFF00FF00)
+val Magenta = Color(0xFFFF00FF)
