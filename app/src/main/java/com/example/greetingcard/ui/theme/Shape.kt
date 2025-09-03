@@ -6,7 +6,12 @@ import androidx.compose.material3.Shapes
 import androidx.compose.ui.unit.dp
 
 val AppShapes = Shapes(
-    small = CutCornerShape(topStart = 8.dp, bottomEnd = 8.dp), // A bit edgy for small components
-    medium = RoundedCornerShape(16.dp), // Nicely rounded for medium components like Cards
-    large = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp, bottomStart = 0.dp, bottomEnd = 0.dp) // Expressive top rounding for large sheets/dialogs
+    small = CutCornerShape(topStart = 8.dp, bottomEnd = 8.dp),
+    medium = CutCornerShape(topStart = 16.dp, bottomEnd = 16.dp),
+    large = RoundedCornerShape(
+        topStart = 0.dp,
+        topEnd = 24.dp,
+        bottomStart = 24.dp,
+        bottomEnd = 0.dp
+    )
 )
