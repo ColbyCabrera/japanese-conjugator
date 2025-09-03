@@ -13,26 +13,26 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.graphics.Color
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Orange,
-    secondary = LightBlue,
-    tertiary = Green,
-    background = Color(0xFF1C1B1F),
-    surface = Color(0xFF1C1B1F),
+    primary = ElectricBlue,
+    secondary = BrightYellow,
+    tertiary = VividPink,
+    background = Color(0xFF121212), // A deeper dark background
+    surface = Color(0xFF1E1E1E),
     onPrimary = Color.Black,
     onSecondary = Color.Black,
     onTertiary = Color.Black,
-    onBackground = Color(0xFFE6E1E5),
-    onSurface = Color(0xFFE6E1E5),
+    onBackground = Color(0xFFEAEAEA),
+    onSurface = Color(0xFFEAEAEA),
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Magenta,
-    secondary = Green,
-    tertiary = LightBlue,
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
+    primary = VividPink,
+    secondary = DeepPurple,
+    tertiary = Chartreuse,
+    background = Color(0xFFFDF6F9), // A light, slightly pinkish background
+    surface = Color(0xFFFFFFFF),
     onPrimary = Color.White,
-    onSecondary = Color.Black,
+    onSecondary = Color.White,
     onTertiary = Color.Black,
     onBackground = Color(0xFF1C1B1F),
     onSurface = Color(0xFF1C1B1F),
@@ -41,8 +41,8 @@ private val LightColorScheme = lightColorScheme(
 @Composable
 fun GreetingCardTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    // Dynamic color is disabled to ensure a consistent, expressive theme
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
@@ -58,7 +58,6 @@ fun GreetingCardTheme(
     MaterialTheme(
         colorScheme = colorScheme,
         typography = Typography,
-        shapes = AppShapes,
         content = content
     )
 }
