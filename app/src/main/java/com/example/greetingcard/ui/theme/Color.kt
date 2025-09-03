@@ -15,3 +15,10 @@ val Orange = Color(0xFFFFA500)
 val LightBlue = Color(0xFFADD8E6)
 val Green = Color(0xFF00FF00)
 val Magenta = Color(0xFFFF00FF)
+
+// New expressive colors for a more vibrant theme
+val ElectricBlue = Color(0xFF7EF9FF)
+val BrightYellow = Color(0xFFF4D35E)
+val VividPink = Color(0xFFF9579F)
+val DeepPurple = Color(0xFF6A0DAD)
+val Chartreuse = Color(0xFFDFFF00)
