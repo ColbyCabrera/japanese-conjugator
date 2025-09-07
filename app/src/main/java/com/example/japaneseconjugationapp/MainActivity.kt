@@ -4,39 +4,27 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Image
+import androidx.compose.material.icons.filled.Mic
+import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.BottomAppBarDefaults
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.FloatingToolbarState
 import androidx.compose.material3.Icon
-import androidx.compose.material3.LocalHorizontalFloatingToolbarOverride
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.example.japaneseconjugationapp.ui.theme.JapaneseConjugationappTheme
 
 class MainActivity : ComponentActivity() {
@@ -54,93 +42,75 @@ class MainActivity : ComponentActivity() {
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun MainAppScreen() {
-    Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
-        ) {
-            // Main content of your app will go here
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
-                Text("Japanese Conjugation App", style = MaterialTheme.typography.headlineMedium)
-                Spacer(modifier = Modifier.height(16.dp))
-                Text("Content Area", style = MaterialTheme.typography.bodyLarge)
-                FloatingToolbarState(
-                    initialOffset = 0F,
-                    initialOffsetLimit = 0F,
-                    initialContentOffset = 0F,
-                )
-
-            }
 
 
+    BottomAppBarExample()
 
-            /*  FloatingNavigationBar(
-                  modifier = Modifier
-                      .align(Alignment.BottomCenter)
-                      .fillMaxWidth() // Make the bar a bit wider
-                      .padding(
-                          bottom = 16.dp,
-                          start = 24.dp,
-                          end = 24.dp
-                      ) // Adjust padding for a more "floating" look
-              ) */
-        }
-    }
 }
 
+/**
+ * A wrapper composable for the Material 3 FloatingToolbar.
+ *
+ * This simplifies the call by forwarding the state, modifier, and content
+ * directly to the official Material 3 component.
+ *
+ * @param state The state object to be used to control or observe the FloatingToolbar's state.
+ * @param modifier The modifier to be applied to this layout.
+ * @param content The content of the toolbar, typically IconButtons.
+ */
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-fun FloatingNavigationBar(modifier: Modifier = Modifier) {
-    // HorizontalFloatingToolbar()
+fun FloatingToolbar(
+    state: FloatingToolbarState,
+    modifier: Modifier = Modifier,
+    content: @Composable RowScope.() -> Unit
+) {
+    // Calling the official Material 3 component and passing the parameters.
+    // The full package name is used to avoid a recursive call to this wrapper function.
 
 }
 
 @Composable
-fun HorizontalFloatingNavToolbar() {
-    var isExpanded by remember { mutableStateOf(false) }
-
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        // Animated visibility for the navigation action buttons
-        AnimatedVisibility(visible = isExpanded) {
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(12.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                // Using Extended FABs for navigation with text
-                ExtendedFloatingActionButton(
-                    onClick = { /* Navigate to Home */ },
-                    icon = { Icon(Icons.Default.Home, "Home") },
-                    text = { Text("Home") }
-                )
-                ExtendedFloatingActionButton(
-                    onClick = { /* Navigate to Cart */ },
-                    icon = { Icon(Icons.Default.ShoppingCart, "Cart") },
-                    text = { Text("Cart") }
-                )
-                ExtendedFloatingActionButton(
-                    onClick = { /* Navigate to Settings */ },
-                    icon = { Icon(Icons.Default.Settings, "Settings") },
-                    text = { Text("Settings") }
-                )
-            }
-        }
-
-        // Main FAB to toggle expansion
-        FloatingActionButton(
-            onClick = { isExpanded = !isExpanded }
-        ) {
-            Icon(
-                if (isExpanded) Icons.Default.Close else Icons.Default.Add,
-                contentDescription = "Toggle Navigation"
-            )
-        }
+fun BottomAppBarExample() {
+    Scaffold(
+        bottomBar = {
+            BottomAppBar(actions = {
+                IconButton(onClick = { /* do something */ }) {
+                    Icon(Icons.Filled.Check, contentDescription = "Localized description")
+                }
+                IconButton(onClick = { /* do something */ }) {
+                    Icon(
+                        Icons.Filled.Edit,
+                        contentDescription = "Localized description",
+                    )
+                }
+                IconButton(onClick = { /* do something */ }) {
+                    Icon(
+                        Icons.Filled.Mic,
+                        contentDescription = "Localized description",
+                    )
+                }
+                IconButton(onClick = { /* do something */ }) {
+                    Icon(
+                        Icons.Filled.Image,
+                        contentDescription = "Localized description",
+                    )
+                }
+            }, floatingActionButton = {
+                FloatingActionButton(
+                    onClick = { /* do something */ },
+                    containerColor = BottomAppBarDefaults.bottomAppBarFabColor,
+                    elevation = FloatingActionButtonDefaults.bottomAppBarFabElevation()
+                ) {
+                    Icon(Icons.Filled.Add, "Localized description")
+                }
+            })
+        },
+    ) { innerPadding ->
+        Text(
+            modifier = Modifier.padding(innerPadding),
+            text = "Example of a scaffold with a bottom app bar."
+        )
     }
 }
 
