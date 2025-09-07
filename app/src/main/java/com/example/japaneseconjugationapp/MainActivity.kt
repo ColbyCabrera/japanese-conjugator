@@ -4,28 +4,35 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material.icons.filled.Image
-import androidx.compose.material.icons.filled.Mic
-import androidx.compose.material3.BottomAppBar
-import androidx.compose.material3.BottomAppBarDefaults
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.FloatingActionButtonDefaults
-import androidx.compose.material3.FloatingToolbarState
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.japaneseconjugationapp.ui.theme.JapaneseConjugationappTheme
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.FilledIconButton
+import androidx.compose.material3.FloatingToolbarDefaults.ScreenOffset
+import androidx.compose.material3.FloatingToolbarDefaults.floatingToolbarVerticalNestedScroll
+import androidx.compose.material3.HorizontalFloatingToolbar
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.unit.dp
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,79 +46,67 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun MainAppScreen() {
-
-
-    BottomAppBarExample()
-
-}
-
-/**
- * A wrapper composable for the Material 3 FloatingToolbar.
- *
- * This simplifies the call by forwarding the state, modifier, and content
- * directly to the official Material 3 component.
- *
- * @param state The state object to be used to control or observe the FloatingToolbar's state.
- * @param modifier The modifier to be applied to this layout.
- * @param content The content of the toolbar, typically IconButtons.
- */
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
-@Composable
-fun FloatingToolbar(
-    state: FloatingToolbarState,
-    modifier: Modifier = Modifier,
-    content: @Composable RowScope.() -> Unit
-) {
-    // Calling the official Material 3 component and passing the parameters.
-    // The full package name is used to avoid a recursive call to this wrapper function.
-
-}
-
-@Composable
-fun BottomAppBarExample() {
+    var expanded by rememberSaveable { mutableStateOf(true) }
     Scaffold(
-        bottomBar = {
-            BottomAppBar(actions = {
-                IconButton(onClick = { /* do something */ }) {
-                    Icon(Icons.Filled.Check, contentDescription = "Localized description")
-                }
-                IconButton(onClick = { /* do something */ }) {
-                    Icon(
-                        Icons.Filled.Edit,
-                        contentDescription = "Localized description",
-                    )
-                }
-                IconButton(onClick = { /* do something */ }) {
-                    Icon(
-                        Icons.Filled.Mic,
-                        contentDescription = "Localized description",
-                    )
-                }
-                IconButton(onClick = { /* do something */ }) {
-                    Icon(
-                        Icons.Filled.Image,
-                        contentDescription = "Localized description",
-                    )
-                }
-            }, floatingActionButton = {
-                FloatingActionButton(
-                    onClick = { /* do something */ },
-                    containerColor = BottomAppBarDefaults.bottomAppBarFabColor,
-                    elevation = FloatingActionButtonDefaults.bottomAppBarFabElevation()
+        content = { innerPadding ->
+            Box(Modifier.padding(innerPadding)) {
+                LazyColumn(
+                    // Apply a floatingToolbarVerticalNestedScroll Modifier toggle the expanded
+                    // state of the HorizontalFloatingToolbar.
+                    modifier =
+                        Modifier.floatingToolbarVerticalNestedScroll(
+                            expanded = expanded,
+                            onExpand = { expanded = true },
+                            onCollapse = { expanded = false },
+                        ),
+                    state = rememberLazyListState(),
+                    contentPadding = innerPadding,
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
-                    Icon(Icons.Filled.Add, "Localized description")
+                    val list = (0..75).map { it.toString() }
+                    items(count = list.size) {
+                        Text(
+                            text = list[it],
+                            style = MaterialTheme.typography.bodyLarge,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp),
+                        )
+                    }
                 }
-            })
-        },
-    ) { innerPadding ->
-        Text(
-            modifier = Modifier.padding(innerPadding),
-            text = "Example of a scaffold with a bottom app bar."
-        )
-    }
+                HorizontalFloatingToolbar(
+                    modifier = Modifier
+                        .align(Alignment.BottomCenter)
+                        .offset(y = -ScreenOffset),
+                    expanded = expanded,
+                    leadingContent = { LeadingContent() },
+                    trailingContent = { TrailingContent() },
+                    content = {
+                        FilledIconButton(
+                            modifier = Modifier.width(64.dp),
+                            onClick = { /* doSomething() */ },
+                        ) {
+                            Icon(Icons.Filled.Add, contentDescription = "Localized description")
+                        }
+                    },
+                )
+            }
+        }
+    )
+}
+
+@Composable
+fun TrailingContent() {
+
+}
+
+@Composable
+fun LeadingContent() {
+
 }
 
 
